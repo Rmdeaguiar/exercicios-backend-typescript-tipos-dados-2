@@ -32,8 +32,16 @@ const cadastrarUsuario = (usuario: Usuario): Usuario =>{
     return usuario;
 }
 
-const listagemUsuarios = ():Usuario[] => {
-    return lerArquivo() as Usuario[];
+const listagemUsuarios = (profissao?:string):Usuario[] => {
+    const bd = lerArquivo() as Usuario[];
+    
+    if(profissao){
+        const usuarios = bd.filter(usuario=>{
+            return usuario.profissao === profissao;
+        })
+        return usuarios;
+    }
+    return bd;
 }
 
 const detalharUsuario = (cpf:string):Usuario => {
@@ -74,6 +82,3 @@ const excluirUsuario = (cpf:string):Usuario => {
     escreverArquivo(usuariosPermanentes)
     return usuario
 }
-
-
-
